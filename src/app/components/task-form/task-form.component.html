@@ -8,9 +8,7 @@
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Title</mat-label>
             <input matInput formControlName="title" />
-            <mat-error *ngIf="taskForm.controls.title.invalid">
-              Title is required.
-            </mat-error>
+            <mat-error *ngIf="taskForm.controls['title'].invalid">Title is required.</mat-error>
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="full-width">
@@ -25,18 +23,14 @@
               <mat-option value="In Progress">In Progress</mat-option>
               <mat-option value="Completed">Completed</mat-option>
             </mat-select>
-            <mat-error *ngIf="taskForm.controls.status.invalid">
-              Status is required.
-            </mat-error>
+            <mat-error *ngIf="taskForm.controls['status'].invalid">Status is required.</mat-error>
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Due Date</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="dueDate" />
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="taskForm.controls.dueDate.invalid">
-              Valid date required.
-            </mat-error>
+            <mat-error *ngIf="taskForm.controls['dueDate'].invalid">Due date is required.</mat-error>
           </mat-form-field>
   
           <div class="actions">

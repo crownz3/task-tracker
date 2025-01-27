@@ -7,7 +7,9 @@ import { MaterialModule } from '../../models and helpers/material.module';
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
-  imports:[MaterialModule]
+  imports:[MaterialModule],
+  standalone:true
+
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];

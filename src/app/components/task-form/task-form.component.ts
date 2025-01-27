@@ -3,12 +3,15 @@ import { MaterialModule } from '../../models and helpers/material.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from '../../models and helpers/task.model';
 import { TaskService } from '../../models and helpers/task.service';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-form',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule,CommonModule],
   templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.css'
+  styleUrl: './task-form.component.css',
+  standalone:true
 })
 export class TaskFormComponent implements OnInit {
   taskForm!:FormGroup;
