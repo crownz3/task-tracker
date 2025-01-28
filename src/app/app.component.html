@@ -1,11 +1,16 @@
-<mat-toolbar color="primary">
+<mat-toolbar  class="shadow-sm ">
   <span>Task Tracker</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/tasks">Task List</button>
-  <button mat-button (click)="navigateToTaskForm()">Add Task</button>
-
+  <div>
+    <a routerLink="/tasks"
+      class="me-3 link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5 text-capitalize">Task
+      List</a>
+    <a routerLink="/task-form"
+      class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5 text-capitalize">Add
+      task</a>
+  </div>
 </mat-toolbar>
 
-<div class="container">
+<div >
   <router-outlet></router-outlet>
 </div>
