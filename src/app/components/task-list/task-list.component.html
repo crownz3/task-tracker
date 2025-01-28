@@ -1,11 +1,20 @@
-<div class="mat-elevation-z8 container mt-4 col-12">
-  <section  class="mb-4 d-flex justify-content-between align-items-center col-12">
-   
-    <div> <span>Task List</span></div>
-    <div class=" mb-3">
-      <mat-form-field appearance="outline" class="filter-field">
+<main class="mat-elevation-z8 container mt-4 pb-2 col-12 ">
+
+  <section class="col-12 p-2 d-flex justify-content-between">
+    <div class="fs-2" style="color: var(--text-color);">Task List</div>
+    <div class="mb-3" *ngIf="dataSource.data.length">
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-label>Filter by Due date</mat-label>
+        <mat-select (selectionChange)="applyFilter($event)">
+          <mat-option value="">All</mat-option>
+          <mat-option value="Pending">Pending</mat-option>
+          <mat-option value="In Progress">In Progress</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Filter by Status</mat-label>
-        <mat-select (selectionChange)="filterByStatus($event.value)">
+        <mat-select (selectionChange)="applyFilter($event)">
           <mat-option value="">All</mat-option>
           <mat-option value="Pending">Pending</mat-option>
           <mat-option value="In Progress">In Progress</mat-option>
@@ -15,38 +24,82 @@
     </div>
   </section>
 
+  <section class="col-12 rounded-2 shadow-sm p-2" style="background-color: var(--light-color-2);"
+    [hidden]="!tasks.length">
+    <table mat-table [dataSource]="dataSource" class="shadow-sm">
 
+      <!-- S.no -->
+      <ng-container matColumnDef="S.no">
+        <th mat-header-cell *matHeaderCellDef class="text-center">SNo</th>
+        <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+          {{ dataSource.data.indexOf(element) + 1 }}
+        </td>
+      </ng-container>
 
-  <table mat-table [dataSource]="filteredTasks" class="mat-elevation-z8">
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Title </th>
+        <td mat-cell *matCellDef="let task" class="text-center"> {{ task.title }} </td>
+      </ng-container>
 
-    <!-- Title Column -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let task"> {{ task.title }} </td>
-    </ng-container>
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Due Date </th>
+        <td mat-cell *matCellDef="let task" class="text-center"> {{ task.dueDate | date: 'MM-dd-YYYY'}} </td>
+      </ng-container>
 
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let task"> {{ task.status }} </td>
-    </ng-container>
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
+        <td mat-cell *matCellDef="let task;let i = index" class="text-center">
+          <ng-container *ngIf="editIndex === i; else viewMode">
+            <select [(ngModel)]="task.status" class="form-select">
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </ng-container>
+          <ng-template #viewMode>
+            {{ task.status }}
+          </ng-template>
+        </td>
 
-    <!-- Due Date Column -->
-    <ng-container matColumnDef="dueDate">
-      <th mat-header-cell *matHeaderCellDef> Due Date </th>
-      <td mat-cell *matCellDef="let task"> {{ task.dueDate }} </td>
-    </ng-container>
+      </ng-container>
 
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let task">
-        <button mat-raised-button color="primary" (click)="editTask(task)">Edit</button>
-        <button mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button>
-      </td>
-    </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+        <td mat-cell *matCellDef="let task;let i = index" class="text-center ">
+          <button mat-mini-fab (click)="toggleEdit(i)" *ngIf="editIndex !== i"><mat-icon>edit</mat-icon></button>
+          <div class="d-flex justify-content-around">
+            <button mat-mini-fab color="accent" (click)="editTask(i)" *ngIf="editIndex === i"
+              class="me-2"><mat-icon>done</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="cancelEdit()" *ngIf="editIndex === i">
+              <mat-icon>cancel</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="deleteTask(task.id)"
+              *ngIf="editIndex === i"><mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['title', 'status', 'dueDate', 'actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['title', 'status', 'dueDate', 'actions']"></tr>
-  </table>
-</div>
+      <tr mat-header-row *matHeaderRowDef="['S.no','title', 'dueDate', 'status', 'actions']"
+        class="fw-bold bg-primary-subtle" style="color: var( --text-color);">
+      <tr mat-row *matRowDef=" let row; columns: ['S.no','title',  'dueDate' ,'status' , 'actions' ]"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" class="border-top"></mat-paginator>
+  </section>
+  {{tasks | json}}
+  <section *ngIf="!tasks.length"
+    class="col-12 py-3 rounded-3 mb-3 d-flex justify-content-center align-items-center shadow-sm"
+    style="background-color: var(--light-color-2); ;color: var(--font-color);height: 250px !important;">
+    <div>No task list found, add <b class="mx-2">new</b> task</div>
+    <div>
+      <button routerLink="/task-form" mat-stroked-button type="button" color="accent" class="ms-2">
+        Add Task <mat-icon>open_in_new</mat-icon>
+      </button>
+    </div>
+  </section>
+</main>

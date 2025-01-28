@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../models and helpers/material.module';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from '../../models and helpers/task.model';
 import { TaskService } from '../../models and helpers/task.service';
 import { CommonModule } from '@angular/common';
@@ -8,13 +8,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-form',
-  imports: [MaterialModule, ReactiveFormsModule,CommonModule],
+  imports: [MaterialModule, ReactiveFormsModule, CommonModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css',
-  standalone:true
+  standalone: true
 })
 export class TaskFormComponent implements OnInit {
-  taskForm!:FormGroup;
+  taskForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private taskService: TaskService) { }
 
@@ -24,6 +24,15 @@ export class TaskFormComponent implements OnInit {
 
   initializeForm() {
     this.taskForm = this.fb.group({
+      tasks: this.fb.array([
+        this.createTask()
+      ])
+    })
+  }
+
+  createTask() {
+    return this.fb.group({
+      id: ['', Validators.required],
       title: ['', Validators.required],
       description: [''],
       status: ['', Validators.required],
@@ -31,8 +40,17 @@ export class TaskFormComponent implements OnInit {
     });
   }
 
+  get tasks(): FormArray {
+    return this.taskForm.get('tasks') as FormArray;
+  }
 
+  newTask() {
+    this.tasks.push(this.createTask());
+  }
 
+  removeTask(index: number) {
+    this.tasks.removeAt(index);
+  }
 
   onSubmit() {
     if (this.taskForm.valid) {

@@ -1,23 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MaterialModule } from './models and helpers/material.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { TaskService } from './models and helpers/task.service';
-import { AppRoutingModule } from './app.routes';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MaterialModule,HttpClientModule,RouterModule],
+  imports: [RouterOutlet, MaterialModule, HttpClientModule, RouterModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers:[TaskService]
+  providers: [TaskService]
 })
 export class AppComponent {
-  title = 'task-tracker';
+  isSticky: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  navigateToTaskForm() {
-    this.router.navigateByUrl('/task-form');
+
+  @HostListener('mousewheel', ['onScroll'])
+  onScroll() {
+    const stickySection = document.querySelector('.sticky-header');
+    if (stickySection) {
+      const rect = stickySection.getBoundingClientRect();
+      this.isSticky = rect.top <= 0;
+    }
   }
+
+
 }

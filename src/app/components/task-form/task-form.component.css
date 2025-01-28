@@ -1,0 +1,10 @@
+.side-bar {
+  position: absolute;
+  font-weight: bold;
+  writing-mode: vertical-rl;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  white-space: nowrap;
+}

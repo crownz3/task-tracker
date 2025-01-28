@@ -1,49 +1,69 @@
-<div class="container mt-4">
-  <mat-card>
-    <mat-card-header class="mb-2">
-      <mat-card-title>Create or Edit Task</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="col-12">
-        <div class="col-12 d-flex justify-content-between">
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Title</mat-label>
-            <input matInput formControlName="title" />
-            <mat-error *ngIf="taskForm.controls['title'].invalid">Title is required.</mat-error>
-          </mat-form-field>
+<main class="mat-elevation-z8 container mt-4 pb-2 col-12 ">
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Description</mat-label>
-            <input matInput formControlName="description" />
-          </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
-              <mat-option value="Pending">Pending</mat-option>
-              <mat-option value="In Progress">In Progress</mat-option>
-              <mat-option value="Completed">Completed</mat-option>
-            </mat-select>
-            <mat-error *ngIf="taskForm.controls['status'].invalid">Status is required.</mat-error>
-          </mat-form-field>
+  <section class="col-12 p-2 d-flex justify-content-between">
+    <div class="fs-2" style="color: var(--text-color);">Add Task</div>
+    <div class="mb-3">
+      <button mat-stroked-button type="button" color="accent" class="me-2" (click)="newTask()">
+        New Task
+      </button>
+      <button mat-raised-button type="button" type="submit" [disabled]="taskForm.invalid" (click)="onSubmit()">
+        Submit ({{tasks.length}})
+      </button>
+    </div>
+  </section>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Due Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dueDate" />
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="taskForm.controls['dueDate'].invalid">Due date is required.</mat-error>
-          </mat-form-field>
+  <section style="background-color: white;max-height: 500px;overflow: auto;" class="pe-2">
+    <form [formGroup]="taskForm" class="col-12">
+      <div formArrayName="tasks" class="col-12">
+        <div class="rounded-3 mb-3 shadow-sm p-3 border-bottom"
+          style="background-color: var(--light-color-2);position: relative"
+          *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
+
+          <div class="side-bar py-4 px-2" style="background-color: var(--text-color);">Task </div>
+
+          <div class="col-12 d-flex justify-content-between">
+            <div class=" d-flex justify-content-between pt-2"
+              [ngClass]="{'col-11' : tasks.length > 1 , 'col-12' : tasks.length === 1}">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" />
+                <!-- <mat-error *ngIf="task.controls['title'].invalid">Title is required.</mat-error> -->
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                  <mat-option value="Pending">Pending</mat-option>
+                  <mat-option value="In Progress">In Progress</mat-option>
+                  <mat-option value="Completed">Completed</mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="tasks.controls.status.invalid">Status is required.</mat-error> -->
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Due Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+                <mat-datepicker #picker></mat-datepicker>
+                <!-- <mat-error *ngIf="tasks.controls['dueDate'].invalid">Due date is required.</mat-error> -->
+              </mat-form-field>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <button mat-mini-fab type="button" class="me-2" (click)="removeTask(i)" color="warning"
+                *ngIf="i !== 0 || tasks.controls.length > 1">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          </div>
+
         </div>
-
-        <div class="actions">
-          <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
-            Save
-          </button>
-          <button mat-raised-button color="warn" type="reset">
-            Clear
-          </button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+      </div>
+    </form>
+  </section>
+</main>
