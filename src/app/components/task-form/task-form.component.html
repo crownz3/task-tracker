@@ -1,69 +1,109 @@
-<main class="mat-elevation-z8 container mt-4 pb-2 col-12 ">
+<main class="mat-elevation-z8 container mt-4 pb-2 col-12">
+  <!-- Header Section -->
+  <section class="col-12 p-2 pe-0 d-flex row justify-content-between">
+    <!-- Title -->
+    <div class="fs-2 col-12 col-md-4 mb-3 mb-md-0" style="color: var(--text-color);">Add Task</div>
 
-
-  <section class="col-12 p-2 d-flex justify-content-between">
-    <div class="fs-2" style="color: var(--text-color);">Add Task</div>
-    <div class="mb-3">
-      <button mat-stroked-button type="button" color="accent" class="me-2" (click)="newTask()">
-        New Task
+    <!-- Buttons -->
+    <div class="mb-3 col-12 col-md-5 col-l-2 col-xl-3 d-flex justify-content-between pe-0">
+      <!-- Add Task Button -->
+      <button mat-stroked-button type="button" color="accent" class="me-2" (click)="addTask()">
+        Add Task
       </button>
-      <button mat-raised-button type="button" type="submit" [disabled]="taskForm.invalid" (click)="onSubmit()">
-        Submit ({{tasks.length}})
+
+      <!-- Submit Button -->
+      <button mat-raised-button type="button" [disabled]="taskForm.invalid" (click)="onSubmit()">
+        Submit ({{ tasks.length }})
       </button>
     </div>
   </section>
 
-  <section style="background-color: white;max-height: 500px;overflow: auto;" class="pe-2">
+  <!-- Task Form Section -->
+  <section style="background-color: white; max-height: 500px; overflow: auto;" class="pe-2">
     <form [formGroup]="taskForm" class="col-12">
+      <!-- Task Array -->
       <div formArrayName="tasks" class="col-12">
+        <!-- Loop Through Tasks -->
         <div class="rounded-3 mb-3 shadow-sm p-3 border-bottom"
-          style="background-color: var(--light-color-2);position: relative"
+          style="background-color: var(--light-color-2); position: relative"
           *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
 
-          <div class="side-bar py-4 px-2" style="background-color: var(--text-color);">Task </div>
+          <!-- Sidebar Label -->
+          <div class="side-bar py-4 px-2" style="background-color: var(--text-color);">Task</div>
 
-          <div class="col-12 d-flex justify-content-between">
-            <div class=" d-flex justify-content-between pt-2"
-              [ngClass]="{'col-11' : tasks.length > 1 , 'col-12' : tasks.length === 1}">
-              <mat-form-field appearance="outline" class="full-width">
+          <!-- Task Fields -->
+          <div class="col-12 d-flex justify-content-between flex-column align-items-center flex-lg-row">
+            <!-- Left Side: Task Inputs -->
+            <div class="d-flex justify-content-between pt-2 row "
+              [ngClass]="{'col-11': tasks.length > 1, 'col-12': tasks.length === 1}">
+
+              <!-- Title Field -->
+              <mat-form-field appearance="outline" class="col-12 col-sm-4 col-md-3">
                 <mat-label>Title</mat-label>
                 <input matInput formControlName="title" />
-                <!-- <mat-error *ngIf="task.controls['title'].invalid">Title is required.</mat-error> -->
+                <mat-error *ngIf="task.get('title')?.touched && task.get('title')?.hasError('required')">
+                  Title is required.
+                </mat-error>
+
+                <mat-error *ngIf="task.get('title')?.touched && task.get('title')?.hasError('maxlength')">
+                  Title cannot exceed 25 characters.
+                </mat-error>
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="full-width">
+              <!-- Description Field -->
+              <mat-form-field appearance="outline" class="col-12 col-sm-4 col-md-3">
                 <mat-label>Description</mat-label>
                 <input matInput formControlName="description" />
+                <mat-error *ngIf="task.get('description')?.hasError('maxlength')">
+                  Description cannot exceed 250 characters.
+                </mat-error>
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="full-width">
+              <!-- Status Field -->
+              <mat-form-field appearance="outline" class="col-12 col-sm-4 col-md-3">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status">
                   <mat-option value="Pending">Pending</mat-option>
                   <mat-option value="In Progress">In Progress</mat-option>
                   <mat-option value="Completed">Completed</mat-option>
                 </mat-select>
-                <!-- <mat-error *ngIf="tasks.controls.status.invalid">Status is required.</mat-error> -->
+                <mat-error *ngIf="task.get('status')?.touched && task.get('status')?.invalid">
+                  Status is required.
+                </mat-error>
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="full-width">
+              <!-- Due Date Field -->
+              <mat-form-field appearance="outline" class="col-12 col-sm-4 col-md-3">
                 <mat-label>Due Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+                <input matInput [matDatepicker]="picker" placeholder="Select Due Date" formControlName="dueDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <!-- <mat-error *ngIf="tasks.controls['dueDate'].invalid">Due date is required.</mat-error> -->
+                <mat-error *ngIf="task.get('dueDate')?.touched && task.get('dueDate')?.invalid">
+                  Due date is required.
+                </mat-error>
+                <mat-error *ngIf="task.get('dueDate')?.touched && task.get('dueDate')?.hasError('pastDate')">
+                  Due date cannot be in the past.
+                </mat-error>
               </mat-form-field>
             </div>
 
-            <div class="d-flex align-items-center">
-              <button mat-mini-fab type="button" class="me-2" (click)="removeTask(i)" color="warning"
+            <!-- Right Side: Remove Task Button -->
+            <div class="d-flex align-items-center col-12 col-lg-1 mt-4 mt-lg-0 mt-l-0">
+              <button mat-mini-fab type="button" style="width: 100%;" (click)="removeTask(i)" color="accent"
                 *ngIf="i !== 0 || tasks.controls.length > 1">
-                <mat-icon>remove</mat-icon>
+                Remove
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </form>
+  </section>
+
+  <!-- Empty State Section -->
+  <section *ngIf="tasks.length < 2"
+    class="col-12 text-center px-2 py-3 rounded-3 mb-3 d-flex justify-content-center align-items-center shadow-sm"
+    style="background-color: var(--light-color-2); color: var(--font-color); height: 250px !important;">
+    <div>You can add<b class="mx-2">multiple</b> tasks by clicking the <b>Add Task</b> button.</div>
   </section>
 </main>

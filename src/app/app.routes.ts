@@ -7,7 +7,6 @@ export const routes: Routes = [
   { path: '', redirectTo: 'tasks', pathMatch: 'full' },
   { path: 'tasks', component: TaskListComponent },
   { path: 'task-form', component: TaskFormComponent },
-  { path: 'tasks/edit/:id', component: TaskFormComponent },
   { path: '**', redirectTo: 'tasks' }, // Redirect invalid paths
 ];
 
@@ -15,4 +14,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

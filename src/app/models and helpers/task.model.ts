@@ -1,8 +1,13 @@
 export interface Task {
-    id: number;
-    title: string;
-    description: string;
-    status: 'Pending' | 'In Progress' | 'Completed';
-    dueDate: string;
-  }
-  
+  id: string;
+  title: string;
+  description: string;
+  status: 'Pending' | 'In Progress' | 'Completed';
+  dueDate: Date;
+}
+export interface NotificationInterface {
+  message: string;
+  duration?: number;
+  cssClass?: string;
+  icon?: string;
+}

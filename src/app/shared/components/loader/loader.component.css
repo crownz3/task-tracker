@@ -1,0 +1,41 @@
+.loader {
+  position: relative;
+  animation: flix 3s ease-in infinite alternate;
+}
+
+.loader:before {
+  content: '';
+  display: block;
+  font-size: 0;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  background-image: radial-gradient(circle 7px at 22px 22px, #a7bbff 100%, transparent 0),
+    radial-gradient(circle 4px at 26px 40px, #a7bbff 100%, transparent 0),
+    radial-gradient(circle 22px at -1px -6px, #a7bbff 100%, transparent 0),
+    radial-gradient(circle 9px at 49px 30px, #a7bbff 100%, transparent 0);
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #a7bcffd7;
+}
+
+@keyframes flix {
+
+  0%,
+  60% {
+    transform: rotate(-10deg)
+  }
+
+  100%,
+  30%,
+  80% {
+    transform: rotate(5deg)
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg)
+  }
+}

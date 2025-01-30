@@ -9,7 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from "@angular/material/icon";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   exports: [
     MatToolbarModule,
@@ -22,7 +24,9 @@ import { MatIconModule } from "@angular/material/icon";
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    DragDropModule
   ],
 })
 export class MaterialModule { }

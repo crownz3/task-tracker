@@ -1,33 +1,24 @@
-<!-- <mat-toolbar class="shadow-sm ">
-  <span>Task Tracker</span>
-  <span class="spacer"></span>
-  <div>
-    <a routerLink="/tasks"
-      class="me-3 link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5 text-capitalize">Task
-      List</a>
-    <a routerLink="/task-form"
-      class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5 text-capitalize">Add
-      task</a>
-  </div>
-</mat-toolbar> -->
-
-
-
 <main class="col-12 d-flex justify-content-center flex-column align-items-center  ">
-  <header class="p-3 bg-primary-subtle fw-medium col-12 mb-3 d-flex justify-content-between align-items-center "
-    style="color: var(--text-color);border-radius:  0  0 24px 24px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <div class="fs-2" style="color: var(--text-color);">Task Tracker</div>
-    <div class="fs-2">
+  <header
+    class="p-3 bg-primary-subtle fw-medium col-12 mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center"
+    style="color: var(--text-color); border-radius: 0 0 24px 24px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <!-- Title -->
+    <div class="fs-2 text-center text-md-start mb-2 mb-md-0" style="color: var(--text-color);">
+      Task Tracker
+    </div>
+
+    <!-- Buttons -->
+    <div class="fs-2 d-flex justify-content-center">
       <button routerLink="/tasks" mat-stroked-button type="button" color="accent" class="ms-2">
         Task List
       </button>
       <button routerLink="/task-form" mat-stroked-button type="button" color="accent" class="ms-2">
-        Add Task
+        New Task
       </button>
     </div>
   </header>
 
-  <section class="col-12">
+  <section style="width: 100vw;">
     <router-outlet></router-outlet>
   </section>
 </main>
