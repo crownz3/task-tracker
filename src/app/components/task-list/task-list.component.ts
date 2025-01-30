@@ -23,6 +23,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];  // Store task data
+  displayedColumns: string[] = [""]; // Dynamically set columns
   dataSource!: MatTableDataSource<Task>;  // Data source for table
   editIndex: number | null = null;  // To track task being edited
   onEdit: boolean = false;  // Whether editing a task
@@ -63,6 +64,9 @@ export class TaskListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();  // Reset to first page after filtering
     }
+    this.editIndex = null;
+    this.onEdit = false;
+
   }
 
   // Apply search filter for task titles
@@ -72,6 +76,9 @@ export class TaskListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();  // Reset to first page after filtering
     }
+    this.editIndex = null;
+    this.onEdit = false;
+
   }
 
   // Apply date filter
@@ -88,6 +95,8 @@ export class TaskListComponent implements OnInit {
     } else {
       this.dataSource.filter = '';  // Clear date filter
     }
+    this.editIndex = null;
+    this.onEdit = false;
   }
 
   // Format date to 'L' format
@@ -96,15 +105,17 @@ export class TaskListComponent implements OnInit {
   }
 
   // Toggle between view and edit mode for a task
-  toggleEdit(index: number, task: Task) {
+  toggleEdit(index: number, task: any): void {
     this.editIndex = this.editIndex === index ? null : index;
     this.onEdit = true;
-    this.editForm.patchValue({
-      title: task.title,
-      description: task.description,
-      dueDate: new Date(task.dueDate).toISOString().split('T')[0],
-      status: task.status,
-    });
+    if (this.editIndex !== null) {
+      this.editForm.patchValue({
+        title: task.title,
+        description: task.description,
+        dueDate: new Date(task.dueDate).toISOString().split('T')[0],
+        status: task.status,
+      });
+    }
   }
 
   // Cancel editing and reset form

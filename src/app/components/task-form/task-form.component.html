@@ -19,7 +19,7 @@
   </section>
 
   <!-- Task Form Section -->
-  <section style="background-color: white; max-height: 500px; overflow: auto;" class="pe-2">
+  <section style="background-color: white; max-height: 500px; overflow: auto;">
     <form [formGroup]="taskForm" class="col-12">
       <!-- Task Array -->
       <div formArrayName="tasks" class="col-12">
@@ -89,7 +89,7 @@
 
             <!-- Right Side: Remove Task Button -->
             <div class="d-flex align-items-center col-12 col-lg-1 mt-4 mt-lg-0 mt-l-0">
-              <button mat-mini-fab type="button" style="width: 100%;" (click)="removeTask(i)" color="accent"
+              <button mat-stroked-button type="button" style="width: 100%;" (click)="removeTask(i)" color="accent"
                 *ngIf="i !== 0 || tasks.controls.length > 1">
                 Remove
               </button>
