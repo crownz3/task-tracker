@@ -1,59 +1,82 @@
-# TaskTracker
+**Task Tracker Application**
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+The README.md file is a documentation file that provides instructions on how to run, and use your application. It helps others (or even yourself in the future) start the development server.
 
-## Development server
+What to Include in README.md?
 
-To start a local development server, run:
+Here’s a structured template for your Task Tracker Application:
 
-```bash
-ng serve
-```
+Introduction
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Features
 
-## Code scaffolding
+Technologies Used
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Running the Application
 
-```bash
-ng generate component component-name
-```
+Instructions
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+State Management
 
-```bash
-ng generate --help
-```
+Error Handling
 
-## Building
+---
 
-To build the project run:
+Introduction
 
-```bash
-ng build
-```
+Task Tracker is a web application built with Angular that allows users to create, update, delete, and filter tasks.
+It demonstrates state management, API integration, form validation, and responsive UI design.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+Features
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+✔️ Create, update, and delete tasks
+✔️ Filter tasks by status and due date
+✔️ Responsive design (desktop & mobile)
+✔️ State management using RxJS or NgRx
+✔️ Mock API with JSON Server
+✔️ Form validation with Angular Reactive Forms
+---
 
-```bash
-ng test
-```
+Technologies Used
 
-## Running end-to-end tests
+Frontend: Angular 19, TypeScript, Angular Material
 
-For end-to-end (e2e) testing, run:
+State Management: RxJS BehaviorSubject / NgRx
 
-```bash
-ng e2e
-```
+Mock API: JSON Server
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Styling: CSS, Angular Material, Bootstrap
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Running the Application
+
+The app will be available at: https://crownz3.github.io/task-tracker
+
+---
+
+Instructions:
+
+Adding a Task: Navigate to the "Add Task" page, fill in the required fields, and submit the form.
+
+Viewing Tasks: The task list page displays all tasks with options to filter by status and due date.
+
+Updating a Task: Click the edit button next to a task to modify its details.
+
+Deleting a Task: Click the delete button to remove a task from the list.
+
+---
+
+State Management
+
+This app manages state using RxJS BehaviorSubject (or NgRx, if implemented). The task list updates in real time as changes occur.
+
+---
+Error Handling
+
+API errors are handled with user-friendly messages.
+
+Form validations ensure required fields are filled, and due dates are not in the past.
+
