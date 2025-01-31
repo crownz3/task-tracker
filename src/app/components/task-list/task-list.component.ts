@@ -97,11 +97,17 @@ export class TaskListComponent implements OnInit {
     }
     this.editIndex = null;
     this.onEdit = false;
+    console.log(this.dataSource)
   }
 
   // Format date to 'L' format
   formatDate(date: Date) {
     return moment(date).format('L');
+  }
+
+  // Return a true or false to show/hide table
+  isTableShown(): boolean {
+    return this.dataSource.filteredData.length === 0 ? true : false;
   }
 
   // Toggle between view and edit mode for a task

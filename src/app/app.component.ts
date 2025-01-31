@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   isSticky: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
 
   @HostListener('mousewheel', ['onScroll'])

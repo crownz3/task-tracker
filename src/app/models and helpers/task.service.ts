@@ -9,7 +9,7 @@ import { LoaderComponent } from '../shared/components/loader/loader.component';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:3000/tasks'; // Replace with your API endpoint
+  private apiUrl = 'http://13.232.14.229:50101/tasks'; // Replace with your API endpoint
   private tasksSubject = new BehaviorSubject<Task[]>([]);
 
   tasks$ = this.tasksSubject.asObservable();
@@ -24,7 +24,6 @@ export class TaskService {
         catchError((error: HttpErrorResponse) => {
           const errorMessage = this.getUserFriendlyErrorMessage(error);
           console.error('Error fetching tasks:', errorMessage);
-          this.tasksSubject.error(errorMessage); // Emit error to subscribers
           return throwError(errorMessage);
         })
       )
@@ -37,7 +36,6 @@ export class TaskService {
     return this.http.post<Task>(this.apiUrl, task).pipe(
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.getUserFriendlyErrorMessage(error);
-        console.error('Error adding task:', errorMessage);
         return throwError(errorMessage);
       })
     );
@@ -48,7 +46,6 @@ export class TaskService {
     return this.http.put<Task>(`${this.apiUrl}/${id}`, task).pipe(
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.getUserFriendlyErrorMessage(error);
-        console.error('Error updating task:', errorMessage);
         return throwError(errorMessage);
       })
     );
@@ -59,7 +56,6 @@ export class TaskService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.getUserFriendlyErrorMessage(error);
-        console.error('Error deleting task:', errorMessage);
         return throwError(errorMessage);
       })
     );

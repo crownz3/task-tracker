@@ -61,8 +61,7 @@
     </div>
   </section>
 
-  <section class="col-12 shadow-sm "
-    [hidden]="!((dataSource?.filteredData?.length ?? 0) > 0) && !((tasks?.length ?? 0) > 0)">
+  <section class="col-12 shadow-sm" [hidden]="isTableShown()">
     <div style="overflow: auto;width: 100%;">
       <table mat-table [dataSource]="dataSource" class="mb-0 shadow-sm table table-responsive"
         style="min-width: 250px;">
