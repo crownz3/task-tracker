@@ -171,7 +171,7 @@
   <section class="col-12 d-flex justify-content-end align-items-center">
     <div *ngIf="editForm.invalid &&  dataSource && dataSource.data.length && onEdit"
       class="p-3 col-12 col-md-4 fs-5 fst-italic rounded-2 shadow-sm mt-2"
-      style="background-color: var(--light-color-2); color: var(--text-color);">
+      style="background-color: var(--primary-color); color: var(--text-color);">
       <!-- Title Errors -->
       <mat-error style="color: var(--text-color) !important;" *ngIf="editForm.get('title')?.hasError('required')">
         Title is required.
@@ -203,14 +203,14 @@
 
   <section *ngIf=" dataSource && (!dataSource.data.length || !dataSource.filteredData.length) && tasks.length"
     class="col-12 px-2 text-center py-3 rounded-3 mb-3 d-flex justify-content-center align-items-center shadow-sm"
-    style="background-color: var(--light-color-2); ;color: var(--font-color);height: 250px !important;">
+    style="background-color: var(--primary-color); ;color: var(--font-color);height: 250px !important;">
     <div>No task list found for the selected<b class="mx-2">filter</b>. Click the <b>Reset</b> filter button to view all
       tasks.</div>
   </section>
 
   <section *ngIf="!tasks.length"
     class="col-12 px-2 text-center py-3 rounded-3 mb-3 d-flex justify-content-center align-items-center shadow-sm"
-    style="background-color: var(--light-color-2); ;color: var(--font-color);height: 250px !important;">
+    style="background-color: var(--primary-color); ;color: var(--font-color);height: 250px !important;">
     <div>No task list found. Add a<b class="mx-2">new</b>task.</div>
     <div>
       <button routerLink="/task-form" mat-stroked-button type="button" color="accent" class="ms-2">

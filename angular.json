@@ -16,6 +16,7 @@
             "outputPath": "dist/task-tracker",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "https://github.com/crownz3/task-tracker.git",
             "polyfills": [
               "zone.js",
               "@angular/localize/init"

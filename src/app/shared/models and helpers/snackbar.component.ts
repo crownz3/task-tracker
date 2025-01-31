@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
       <div class="p-2  me-2 align-items-center d-flex justify-content-center rounded-5 bg-black">
         <mat-icon class="m-0">{{ data.icon }}</mat-icon>
       </div>
-      <div style="background-color: var(--light-color-2); color: var(--text-color);" class='fw-semibold px-3  py-1 rounded-pill'>
+      <div style="background-color: var(--primary-color); color: var(--text-color);" class='fw-semibold px-3  py-1 rounded-pill'>
         <span>{{ data.message }}</span>
       </div>
       <button (click)="close()" mat-stroked-button style='color:#ecf0ff' class="ms-2">Close</button>
@@ -21,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--light-color-2);
+      color: var(--primary-color);
     }
 
     .snackbar-content mat-icon {

@@ -25,7 +25,7 @@
       <div formArrayName="tasks" class="col-12">
         <!-- Loop Through Tasks -->
         <div class="rounded-3 mb-3 shadow-sm p-3 border-bottom"
-          style="background-color: var(--light-color-2); position: relative"
+          style="background-color: var(--primary-color); position: relative"
           *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
 
           <!-- Sidebar Label -->
@@ -103,7 +103,7 @@
   <!-- Empty State Section -->
   <section *ngIf="tasks.length < 2"
     class="col-12 text-center px-2 py-3 rounded-3 mb-3 d-flex justify-content-center align-items-center shadow-sm"
-    style="background-color: var(--light-color-2); color: var(--font-color); height: 250px !important;">
+    style="background-color: var(--primary-color); color: var(--font-color); height: 250px !important;">
     <div>You can add<b class="mx-2">multiple</b> tasks by clicking the <b>Add Task</b> button.</div>
   </section>
 </main>
