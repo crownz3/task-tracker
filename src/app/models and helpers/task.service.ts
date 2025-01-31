@@ -9,7 +9,7 @@ import { LoaderComponent } from '../shared/components/loader/loader.component';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'http://13.232.14.229:50101/tasks'; // Replace with your API endpoint
+  private apiUrl = 'https://tasktraker.smartflix.tech/tasks'; // Replace with your API endpoint
   private tasksSubject = new BehaviorSubject<Task[]>([]);
 
   tasks$ = this.tasksSubject.asObservable();
