@@ -1,4 +1,4 @@
-<main class="mat-elevation-z8 container mt-4 pb-2 col-12 ">
+<main class="container mt-4 pb-2 col-12 ">
 
   <section class="container-fluid mb-3 p-0">
     <div class="row align-items-center ">
@@ -61,8 +61,8 @@
     </div>
   </section>
 
-  <section class="col-12 shadow-sm " *ngIf="dataSource &&  dataSource.filteredData.length > 0 && tasks.length > 0 "
-    style="overflow: hidden;">
+  <section class="col-12 shadow-sm "
+    [hidden]="!((dataSource?.filteredData?.length ?? 0) > 0) && !((tasks?.length ?? 0) > 0)">
     <div style="overflow: auto;width: 100%;">
       <table mat-table [dataSource]="dataSource" class="mb-0 shadow-sm table table-responsive"
         style="min-width: 250px;">
